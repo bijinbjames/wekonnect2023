@@ -1,0 +1,207 @@
+<div class="page-margin">
+	<div class="row">
+		<div class="col-md-2 leftcol"><?php echo Wo_LoadPage("sidebar/left-sidebar"); ?></div>
+		<div class="col-md-7 middlecol">
+			
+
+			<?php if (Wo_IsMobile() == true) { ?>
+			<?php if ($wo['config']['order_posts_by'] == 0) { ?>
+				<div class="order-by">
+					<div class="dropdown">
+						<?php echo $wo['lang']['store_posts_by'] ?>: <a class="dropdown-toggle" type="button" data-toggle="dropdown">
+						<span class="order-text"><?php echo ($wo['user']['order_posts_by'] == 0) ? $wo['lang']['all'] : $wo['lang']['people_i_follow']; ?></span>
+						<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#" onclick="Wo_StorePosts(0);"><?php echo $wo['lang']['all'] ?></a></li>
+							<li><a href="#" onclick="Wo_StorePosts(1);"><?php echo $wo['lang']['people_i_follow'] ?></a></li>
+						</ul>
+					</div>
+				</div>
+			<?php } ?>
+			<?php } ?>
+
+			
+
+			
+			<div class="btn btn-main btn-active posts-count" onclick="Wo_GetNewPosts();"></div>
+			
+			<!-- #posts -->
+		</div>
+		<!-- .col-md-8 -->
+		<?php echo Wo_LoadPage('sidebar/content'); ?>
+	</div>
+</div>
+<!-- .page-margin -->
+<style>
+.post-youtube iframe {height: 277px !important;}
+</style>
+
+<?php
+if ($wo['user']['social_login'] == 1) {
+  echo Wo_LoadPage('modals/create-password');
+}
+?>
+
+<script type="text/javascript">
+
+$(function() {
+    loadposts();
+});
+
+
+// $(document).on('click', '.story-image-wrapper', function(event) {
+//   event.preventDefault();
+//   $value = $(this).parents(".story-container").attr('data-status-id');
+//   $.post(Wo_Ajax_Requests_File() + '?f=story_view', {id: $value}, function(data, textStatus, xhr) {
+
+//   });
+// });
+
+/* Standard syntax */
+document.addEventListener("fullscreenchange", function() {
+  $('video').toggleClass('active-player');
+});
+
+/* Firefox */
+document.addEventListener("mozfullscreenchange", function() {
+  $('video').toggleClass('active-player');
+});
+
+/* Chrome, Safari and Opera */
+document.addEventListener("webkitfullscreenchange", function() {
+  $('video').toggleClass('active-player');
+});
+
+/* IE / Edge */
+document.addEventListener("msfullscreenchange", function() {
+  $('video').toggleClass('active-player');
+});
+
+
+function loadposts() {
+	$("#posts-laoded").load(Wo_Ajax_Requests_File() + '?f=load_posts', function enter() {
+		Wo_FinishBar();
+		window.fbAsyncInit = function() {
+		  FB.init({
+			appId      : '374255706379985',
+			xfbml      : true,
+			version    : 'v3.2'
+		  });
+		};
+	  	$(".post-description p, .product-description").each(function(index, el) {
+	  		ReadMoreText(this);
+	  	});
+	  	$(".post-commet-textarea .textarea").triggeredAutocomplete({
+	       hidden: '#hidden_inputbox_comment',
+	       source: Wo_Ajax_Requests_File() + "?f=mention",
+	       trigger: "@"
+	    });
+	  	$(".comment-reply textarea").triggeredAutocomplete({
+	       hidden: '#hidden_inputbox_comment_reply',
+	       source: Wo_Ajax_Requests_File() + "?f=mention",
+	       trigger: "@"
+	    });
+	    $('#load-more-posts').show();
+
+	});
+}
+  <?php if ($wo['user']['social_login'] == 1) { ?>
+  $(window).on("load", function (e) {
+       $('#create-password').modal('show');
+    });
+  $(function() {
+    var create_password_container = $('#create-password');
+    $('form.create-password').ajaxForm({
+      url: Wo_Ajax_Requests_File() + '?f=update_new_logged_user_details',
+      beforeSend: function() {
+        Wo_progressIconLoader($('form.create-password').find('button'));
+      },
+      success: function(data) {
+        if (data.status == 200) {
+          create_password_container.find('.error-container').html("<div class='alert alert-success'>" + data.message + "</div>");
+           $('#update-username').attr('href', data.url);
+           setTimeout(function() {
+            $('#create-password').modal('hide');
+           }, 1500);
+        } else {
+          var errors = data.errors.join("<br>");
+          create_password_container.find('.error-container').html("<div class='alert alert-danger'>" + errors + "</div>");
+        }
+        Wo_progressIconLoader($('form.create-password').find('button'));
+      }
+    });
+  });
+
+<?php } ?>
+
+<?php if (Wo_IsMobile() == true) { ?>
+function Wo_StorePosts(type) {
+  if (type > 1) {
+     return false;
+  }
+  if (type == 0) {
+    $('.order-text').text('<?php echo $wo['lang']['all'] ?>');
+  } else {
+    $('.order-text').text('<?php echo $wo['lang']['people_i_follow'] ?>');
+  }
+  $('#posts-laoded').html('<div class="wo_loading_post"><div class="wo_loading_post_child"></div></div>');
+  $.get(Wo_Ajax_Requests_File() + '?f=update_order_by', {type:type}, function (data) {
+    if (data.status == 200) {
+      loadposts();
+    }
+  });
+}
+<?php } ?>
+
+function Wo_ViewAnnouncement(id) {
+    var announcement_container = $('.home-announcement');
+    $.get(Wo_Ajax_Requests_File() + '?f=update_announcement_views', {id:id}, function (data) {
+      if (data.status == 200) {
+          announcement_container.slideUp(200, function () {
+            $(this).remove();
+          });
+      }
+    });
+}
+
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*60*60*1000));
+    var expires = "expires="+ d;
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookieValue(a) {
+    var b = document.cookie.match('(^|;)\\s*' + a + '\\s*=\\s*([^;]+)');
+    return b ? b.pop() : '';
+}
+
+$(function () {
+    var is_day_enabled = getCookieValue('day_status');
+    var myDate = new Date();
+    var hrs = myDate.getHours();
+    var greet;
+    var color;
+	var quote;
+    if (hrs < 12) {
+        greet = '<?php echo $wo['lang']['good_morning']?>, <?php echo $wo['user']['name']?> <img src="<?php echo $wo['config']['theme_url'];?>/img/park.png"/>';
+        color = '#7FC583';
+		quote = '<?php echo $wo['lang']['good_morning_quote']?>';
+    } else if (hrs >= 12 && hrs <= 18) {
+        greet = '<?php echo $wo['lang']['good_afternoon']?>, <?php echo $wo['user']['name']?> <img src="<?php echo $wo['config']['theme_url'];?>/img/desert.png"/>';
+        color = '#ffc107';
+		quote = '<?php echo $wo['lang']['good_afternoon_quote']?>';
+    } else if (hrs >= 18 && hrs <= 24) {
+        greet = '<?php echo $wo['lang']['good_evening']?>, <?php echo $wo['user']['name']?> <img src="<?php echo $wo['config']['theme_url'];?>/img/sea.png"/>';
+        color = '#FF4F70';
+		quote = '<?php echo $wo['lang']['good_evening_quote']?>';
+    }
+    if (is_day_enabled != 1) {
+      setTimeout(function () {
+        $('.greetalert').css('border-color', color );
+        $('#daynightmsg').html('<div class="small-texts">' + greet + '</div><p>' + quote + '</p>');
+        $('.greetalert').removeClass('hidden');
+      }, 100);
+    }
+});
+</script>

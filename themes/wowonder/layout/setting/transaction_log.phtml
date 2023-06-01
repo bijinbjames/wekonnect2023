@@ -1,0 +1,16 @@
+<?php 
+$wo['trans'] = Wo_GetMytransactions(array('user_id' => $wo['setting']['user_id']));
+?>
+<div class="wo_settings_page wow_content">
+	<div class="avatar-holder">
+		<div class="infoz">
+			<p class="setting-name" style="padding-top: 100px;"><?php echo $wo['lang']['transaction_log']; ?></p>
+		</div>
+	</div>
+
+	<div class="wallet_transactions wow_sett_trans_table">
+		<div class="tabbable">
+			<?php echo Wo_LoadPage('setting/includes/latest_activities');?>
+		</div>
+	</div>
+</div>

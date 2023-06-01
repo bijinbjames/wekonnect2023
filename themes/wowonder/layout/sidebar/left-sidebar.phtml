@@ -1,0 +1,137 @@
+<?php if ($wo['loggedin'] == true && Wo_IsMobile() == false) { ?>
+<div class="left-sidebar">
+	<ul>
+		<!--<li>
+			<a href="<?php echo $wo['user']['url']; ?>" data-ajax="?link1=timeline&u=<?php echo $wo['user']['username'];?>">
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#047cac" d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z" /></svg> <?php echo $wo['lang']['my_profile'];?>
+			</a>
+		</li>-->
+		
+		<?php if ($wo['config']['website_mode'] != 'askfm') { ?>
+		
+		<?php } ?>
+		
+		<?php if ($wo['config']['popular_posts'] == 1) { ?>
+	
+		<?php } ?>
+		<?php if ($wo['config']['memories_system'] == 1) { ?>
+		<li>
+			<a href="<?php echo Wo_SeoLink('index.php?link1=memories'); ?>" data-ajax="?link1=memories">
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#009da0" d="M13.5,8H12V13L16.28,15.54L17,14.33L13.5,12.25V8M13,3A9,9 0 0,0 4,12H1L4.96,16.03L9,12H6A7,7 0 0,1 13,5A7,7 0 0,1 20,12A7,7 0 0,1 13,19C11.07,19 9.32,18.21 8.06,16.94L6.64,18.36C8.27,20 10.5,21 13,21A9,9 0 0,0 22,12A9,9 0 0,0 13,3"></svg><img src="<?php echo $wo['config']['theme_url'];?>/img/sidebar/memories.svg"> <?php echo $wo['lang']['memories'];?>
+			</a>
+		</li>
+		<?php } ?>
+		<?php if ($wo['config']['poke_system'] == 1) { ?>
+		<li>
+			<a href="<?php echo Wo_SeoLink('index.php?link1=poke');?>"  data-ajax="?link1=poke">
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#009688" d="M21,9A1,1 0 0,1 22,10A1,1 0 0,1 21,11H16.53L16.4,12.21L14.2,17.15C14,17.65 13.47,18 12.86,18H8.5C7.7,18 7,17.27 7,16.5V10C7,9.61 7.16,9.26 7.43,9L11.63,4.1L12.4,4.84C12.6,5.03 12.72,5.29 12.72,5.58L12.69,5.8L11,9H21M2,18V10H5V18H2Z"></svg><img src="<?php echo $wo['config']['theme_url'];?>/img/sidebar/poke.svg"> <?php echo $wo['lang']['pokes'];?>
+			</a>
+		</li>
+		<?php } ?>
+		<?php if ($wo['config']['groups'] == 1) { ?>
+		
+		<?php } ?>
+		<?php if ($wo['config']['pages'] == 1) { ?>
+		<li>
+			<a href="<?php echo Wo_SeoLink('index.php?link1=pages'); ?>" data-ajax="?link1=pages">
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#f79f58" d="M14.4,6L14,4H5V21H7V14H12.6L13,16H20V6H14.4Z"></svg><img src="<?php echo $wo['config']['theme_url'];?>/img/sidebar/page.svg"> <?php echo $wo['lang']['company'];?>
+			</a>
+		</li>
+		<?php } ?>
+
+		
+		
+		<?php if ($wo['config']['classified'] == 1) { ?>
+		<li>
+			<a href="<?php echo Wo_SeoLink('index.php?link1=products'); ?>" data-ajax="?link1=products">
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#7d8250" d="M12,18H6V14H12M21,14V12L20,7H4L3,12V14H4V20H14V14H18V20H20V14M20,4H4V6H20V4Z"></svg><img src="<?php echo $wo['config']['theme_url'];?>/img/sidebar/market.svg"> <?php echo $wo['lang']['market'];?>
+			</a>
+		</li>
+		<?php } ?>
+
+        
+		
+        <?php if ($wo['config']['events'] == 1) { ?>
+		
+		<?php } ?>
+		<?php if ($wo['config']['games'] == 1) { ?>
+		<li>
+			<a href="<?php echo Wo_SeoLink('index.php?link1=new-game'); ?>" data-ajax="?link1=new-game">
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#03A9F4" d="M16.5,9L13.5,12L16.5,15H22V9M9,16.5V22H15V16.5L12,13.5M7.5,9H2V15H7.5L10.5,12M15,7.5V2H9V7.5L12,10.5L15,7.5Z"></svg><img src="<?php echo $wo['config']['theme_url'];?>/img/sidebar/game.svg"> <?php echo $wo['lang']['games'];?>
+			</a>
+		</li>
+		<?php } ?>
+		<?php if ($wo['config']['forum'] == 1) { ?>
+
+		
+		<?php } ?>
+		<?php if ($wo['config']['movies'] == 1) { ?>
+		<li>
+			<a href="<?php echo Wo_SeoLink('index.php?link1=movies'); ?>" data-ajax="?link1=movies">
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#8d73cc" d="M18,9H16V7H18M18,13H16V11H18M18,17H16V15H18M8,9H6V7H8M8,13H6V11H8M8,17H6V15H8M18,3V5H16V3H8V5H6V3H4V21H6V19H8V21H16V19H18V21H20V3H18Z"></svg><img src="<?php echo $wo['config']['theme_url'];?>/img/sidebar/movie.svg"> <?php echo $wo['lang']['movies'];?>
+			</a>
+		</li>
+		<?php } ?>
+		<?php if ($wo['config']['job_system'] == 1) { ?>
+		<li>
+			<a href="<?php echo Wo_SeoLink('index.php?link1=jobs'); ?>" data-ajax="?link1=jobs">
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#4caf50" d="M10,2H14A2,2 0 0,1 16,4V6H20A2,2 0 0,1 22,8V19A2,2 0 0,1 20,21H4C2.89,21 2,20.1 2,19V8C2,6.89 2.89,6 4,6H8V4C8,2.89 8.89,2 10,2M14,6V4H10V6H14Z"></svg><img src="<?php echo $wo['config']['theme_url'];?>/img/sidebar/job.svg"> <?php echo $wo['lang']['jobs'];?>
+			</a>
+		</li>
+		<?php } ?>
+		<?php if ($wo['config']['offer_system'] == 1) { ?>
+		<li>
+			<a href="<?php echo Wo_SeoLink('index.php?link1=offers'); ?>" data-ajax="?link1=offers">
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#e91e63" d="M5.5,7A1.5,1.5 0 0,1 4,5.5A1.5,1.5 0 0,1 5.5,4A1.5,1.5 0 0,1 7,5.5A1.5,1.5 0 0,1 5.5,7M21.41,11.58L12.41,2.58C12.05,2.22 11.55,2 11,2H4C2.89,2 2,2.89 2,4V11C2,11.55 2.22,12.05 2.59,12.41L11.58,21.41C11.95,21.77 12.45,22 13,22C13.55,22 14.05,21.77 14.41,21.41L21.41,14.41C21.78,14.05 22,13.55 22,13C22,12.44 21.77,11.94 21.41,11.58Z"></svg><img src="<?php echo $wo['config']['theme_url'];?>/img/sidebar/offer.svg"> <?php echo $wo['lang']['offers'];?>
+			</a>
+		</li>
+		<?php } ?>
+		
+		<?php if ($wo['config']['find_friends'] == 1) { ?>
+		<li>
+			<a href="<?php echo Wo_SeoLink('index.php?link1=friends-nearby'); ?>" data-ajax="?link1=friends-nearby">
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#b2c17c" d="M15.5,12C18,12 20,14 20,16.5C20,17.38 19.75,18.21 19.31,18.9L22.39,22L21,23.39L17.88,20.32C17.19,20.75 16.37,21 15.5,21C13,21 11,19 11,16.5C11,14 13,12 15.5,12M15.5,14A2.5,2.5 0 0,0 13,16.5A2.5,2.5 0 0,0 15.5,19A2.5,2.5 0 0,0 18,16.5A2.5,2.5 0 0,0 15.5,14M10,4A4,4 0 0,1 14,8C14,8.91 13.69,9.75 13.18,10.43C12.32,10.75 11.55,11.26 10.91,11.9L10,12A4,4 0 0,1 6,8A4,4 0 0,1 10,4M2,20V18C2,15.88 5.31,14.14 9.5,14C9.18,14.78 9,15.62 9,16.5C9,17.79 9.38,19 10,20H2Z"></svg><img src="<?php echo $wo['config']['theme_url'];?>/img/sidebar/find.svg"> <?php echo $wo['lang']['people'];?>
+			</a>
+		</li>
+		<?php } ?>
+		<?php if ($wo['config']['common_things'] == 1) { ?>
+		<li>
+			<a href="<?php echo Wo_SeoLink('index.php?link1=common_things'); ?>" data-ajax="?link1=common_things">
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#ff5991" d="M15,2C16.94,2 18.59,2.7 19.95,4.05C21.3,5.41 22,7.06 22,9C22,10.56 21.5,11.96 20.58,13.2C19.64,14.43 18.44,15.27 16.97,15.7L17,15.38V15C17,12.81 16.23,10.93 14.65,9.35C13.07,7.77 11.19,7 9,7H8.63L8.3,7.03C8.73,5.56 9.57,4.36 10.8,3.42C12.04,2.5 13.44,2 15,2M9,8A7,7 0 0,1 16,15A7,7 0 0,1 9,22A7,7 0 0,1 2,15A7,7 0 0,1 9,8M9,10A5,5 0 0,0 4,15A5,5 0 0,0 9,20A5,5 0 0,0 14,15A5,5 0 0,0 9,10Z"></svg><img src="<?php echo $wo['config']['theme_url'];?>/img/sidebar/common.svg"> <?php echo $wo['lang']['common_things'];?>
+			</a>
+		</li>
+		<?php } ?>
+		<?php if ($wo['config']['funding_system'] == 1) { ?>
+
+		
+		<?php } ?>
+		<?php if ($wo['config']['website_mode'] == 'linkedin') { ?>
+		
+		<?php } ?>
+	</ul>
+</div>
+<?php } ?>
+
+
+<?php if ($wo['config']['order_posts_by'] == 0) { ?>
+<script>
+function Wo_StorePosts(type) {
+  if (type > 1) {
+     return false;
+  }
+  if (type == 0) {
+	$('.order_all').addClass('active');
+	$('.order_people').removeClass('active');
+  } else {
+	$('.order_all').removeClass('active');
+	$('.order_people').addClass('active');
+  }
+  $('#posts-laoded').html('<div class="wo_loading_post"><div class="lightui1-shimmer"> <div class="_2iwr"></div> <div class="_2iws"></div> <div class="_2iwt"></div> <div class="_2iwu"></div> <div class="_2iwv"></div> <div class="_2iww"></div> <div class="_2iwx"></div> <div class="_2iwy"></div> <div class="_2iwz"></div> <div class="_2iw-"></div> <div class="_2iw_"></div> <div class="_2ix0"></div> </div></div><div class="wo_loading_post"><div class="lightui1-shimmer"> <div class="_2iwr"></div> <div class="_2iws"></div> <div class="_2iwt"></div> <div class="_2iwu"></div> <div class="_2iwv"></div> <div class="_2iww"></div> <div class="_2iwx"></div> <div class="_2iwy"></div> <div class="_2iwz"></div> <div class="_2iw-"></div> <div class="_2iw_"></div> <div class="_2ix0"></div> </div></div>');
+  $.get(Wo_Ajax_Requests_File() + '?f=update_order_by', {type:type}, function (data) {
+    if (data.status == 200) {
+      loadposts();
+    }
+  });
+}
+</script>
+<?php } ?>

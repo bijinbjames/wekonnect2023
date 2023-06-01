@@ -1,0 +1,128 @@
+<div class="wo_settings_page wow_content">
+	<div class="avatar-holder security">
+		<div class="infoz">
+			<p class="setting-name" style="padding-top: 100px;"><?php echo $wo['lang']['privacy_setting']; ?></p>
+		</div>
+	</div>
+
+	<form class="form-horizontal setting-privacy-form" method="post">
+         <div class="setting-privacy-alert setting-update-alert"></div>
+		 
+		 <div class="setting-panel wow_sett_privt_labls">
+			<!-- Select Basic -->
+			<?php if ($wo['config']['connectivitySystem'] == 0) { ?>
+			
+			<?php } ?>
+			<!-- Select Basic -->
+			
+			
+			<!-- Select Basic -->
+			
+			
+			<?php if($wo['config']['connectivitySystem'] == 0) { ?>
+			
+			<?php } ?>
+			<?php
+				$profileVisits = 0;
+				if ($wo['config']['pro'] == 1) {
+					if ($wo['setting']['is_pro'] == 1 && in_array($wo['setting']['pro_type'], array_keys($wo['pro_packages_types'])) && $wo['pro_packages'][$wo['pro_packages_types'][$wo['setting']['pro_type']]]['profile_visitors'] == 1) {
+					$profileVisits = 1;
+					}
+				} else {
+					$profileVisits = 1;
+				}
+			?>
+			<?php if ($profileVisits == 1) { ?>
+			<?php if($wo['config']['profileVisit'] == 1) { ?>
+			<div class="form-group wow_form_fields">
+				<label class="col-md-6" for="visit_privacy"> <?php echo $wo['lang']['profile_visit_notification_p']; ?></label>
+				<div class="col-md-6">
+					<select id="visit_privacy" name="visit_privacy" class="form-control">
+						<?php 
+							$selected_visit_privacy_yes   = ($wo['setting']['visit_privacy'] == 0)   ? ' selected' : '';
+							$selected_visit_privacy_no    = ($wo['setting']['visit_privacy'] == 1)   ? ' selected' : '';
+						?>
+						<option value="1" <?php echo $selected_visit_privacy_no; ?>>
+							<?php echo $wo['lang']['no']; ?>
+						</option>
+						<option value="0" <?php echo $selected_visit_privacy_yes; ?>>
+							<?php echo $wo['lang']['yes']; ?>
+						</option>
+					</select>
+					<span class="help-block"><?php echo $wo['lang']['profile_visit_notification_help']; ?></span>
+				</div>
+			</div>
+			<?php } ?>
+			<?php if($wo['config']['user_lastseen'] == 1 && in_array($wo['setting']['pro_type'], array_keys($wo['pro_packages_types'])) && $wo['pro_packages'][$wo['pro_packages_types'][$wo['setting']['pro_type']]]['last_seen'] == 1) { ?>
+			<div class="form-group wow_form_fields">
+				<label class="col-md-6" for="showlastseen"> <?php echo $wo['lang']['lastseen_privacy_label']; ?></label>
+				<div class="col-md-6">
+					<select id="showlastseen" name="showlastseen" class="form-control">
+						<?php 
+							$selected_lastseen_yes   = ($wo['setting']['showlastseen'] == 1)   ? ' selected' : '';
+							$selected_lastseen_no    = ($wo['setting']['showlastseen'] == 0)   ? ' selected' : '';
+						?>
+						<option value="0" <?php echo $selected_lastseen_no; ?>>
+							<?php echo $wo['lang']['no']; ?>
+						</option>
+						<option value="1" <?php echo $selected_lastseen_yes; ?>>
+							<?php echo $wo['lang']['yes']; ?>
+						</option>
+					</select>
+					<span class="help-block"><?php echo $wo['lang']['showlastseen_help']; ?></span>
+				</div>
+			</div>
+			<?php } ?>
+			<?php } ?>
+			
+			<div class="form-group wow_form_fields">
+				<label class="col-md-6" for="chat_status"> <?php echo $wo['lang']['status']; ?></label>
+				<div class="col-md-6">
+					<select id="chat_status" name="status" class="form-control">
+						<?php 
+							$selected_chat_status_yes   = ($wo['setting']['status'] == 1)   ? ' selected' : '';
+							$selected_chat_status_no    = ($wo['setting']['status'] == 0)   ? ' selected' : '';
+						?>
+						<option value="0" <?php echo $selected_chat_status_no; ?>>
+							<?php echo $wo['lang']['online']; ?>
+						</option>
+						<option value="1" <?php echo $selected_chat_status_yes; ?>>
+							<?php echo $wo['lang']['offline']; ?>
+						</option>
+					</select>
+				</div>
+			</div>
+			
+			
+		 </div>
+
+		<div class="text-center">
+			<button type="submit" class="btn btn-main btn-mat btn-mat-raised add_wow_loader"><?php echo $wo['lang']['save']; ?></button>
+		</div>
+
+         <input type="hidden" name="user_id" value="<?php echo $wo['setting']['user_id'];?>">
+         <input type="hidden" name="hash_id" value="<?php echo Wo_CreateSession();?>">
+   </form>
+</div>
+<script type="text/javascript">
+$(function() {
+  $('form.setting-privacy-form').ajaxForm({
+    url: Wo_Ajax_Requests_File() + '?f=update_privacy_settings',
+    beforeSend: function() {
+      $('.wo_settings_page').find('.add_wow_loader').addClass('btn-loading');
+    },
+    success: function(data) {
+      scrollToTop();
+      if (data.status == 200) {
+        $('.setting-privacy-alert').html('<div class="alert alert-success">' + data.message + '</div>');
+        $('.alert-success').fadeIn('fast', function() {
+          $(this).delay(2500).slideUp(500, function() {
+            $(this).remove();
+          });
+        });
+      } 
+      $('.wo_settings_page').find('.add_wow_loader').removeClass('btn-loading');
+    }
+  });
+});
+</script>
